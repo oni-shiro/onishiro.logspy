@@ -1,0 +1,11 @@
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\bin\Debug\net9.0\onishiro.logspy.common.deps.json
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\bin\Debug\net9.0\onishiro.logspy.common.dll
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\bin\Debug\net9.0\onishiro.logspy.common.pdb
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.AssemblyInfoInputs.cache
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.AssemblyInfo.cs
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.csproj.CoreCompileInputs.cache
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.dll
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\refint\onishiro.logspy.common.dll
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\onishiro.logspy.common.pdb
+C:\Dev\onishiro.logspy\src\onishiro.logspy.common\obj\Debug\net9.0\ref\onishiro.logspy.common.dll

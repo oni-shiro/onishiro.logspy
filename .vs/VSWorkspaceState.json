@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\onishiro.logspy.broker",
+    "\\src\\onishiro.logspy.broker\\Models"
+  ],
+  "SelectedNode": "\\src\\onishiro.logspy.broker\\Models\\BrokerLogOptions.cs",
+  "PreviewInSolutionExplorer": false
+}

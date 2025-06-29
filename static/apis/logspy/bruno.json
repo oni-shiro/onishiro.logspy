@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "logspy",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

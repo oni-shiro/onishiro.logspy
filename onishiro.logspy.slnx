@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/onishiro.logspy.client.core/onishiro.logspy.client.core.csproj" />
+    <Project Path="src/onishiro.logspy.broker/onishiro.logspy.broker.csproj" />
+    <Project Path="src/onishiro.logspy.client/onishiro.logspy.client.csproj" />
+    <Project Path="src/onishiro.logspy.common/onishiro.logspy.common.csproj" />
+  </Folder>
+</Solution>
