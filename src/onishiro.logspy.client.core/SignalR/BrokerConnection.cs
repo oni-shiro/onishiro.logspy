@@ -10,7 +10,7 @@ public class BrokerConnection
     public HubConnection Connection => _connection;
     private bool _isHandlersRegistered = false;
 
-    public Action<LogPacket> OnLogReceived;
+    public Action<LogPacket>? OnLogReceived;
 
     public BrokerConnection(string hubUrl)
     {
