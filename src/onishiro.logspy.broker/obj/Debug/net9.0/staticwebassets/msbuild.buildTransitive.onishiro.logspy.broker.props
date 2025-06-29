@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\onishiro.logspy.broker.props" />
-</Project>
