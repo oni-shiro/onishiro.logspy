@@ -53,9 +53,10 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 
-# VsCode and Vs
+# VsCode and Vs and Rider
 **/.vs
 **/.vscode
+**/.idea
 
 
 # Project Related

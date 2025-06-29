@@ -12,7 +12,7 @@ public class LogViewModel : ViewModelBase
 
     public LogViewModel()
     {
-        LogEntries.Add(new LogEntryModel("Test", "Hello from constructor", DateTime.Now));
+        
     }
     public void ShowLogPackets(LogPacket logPacket)
     {

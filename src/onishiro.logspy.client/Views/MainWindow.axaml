@@ -12,27 +12,47 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-        <DockPanel Margin="">
+        <DockPanel Margin="0" Background="Wheat">
+			<Grid DockPanel.Dock="Top" ColumnDefinitions="2* 5* 2*" Height="60" Width="">
+				<TextBlock Text="LogSpy" Grid.Column="1" FontSize="24" FontFamily="JetBrains Mono" FontWeight="Bold" 
+						   VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black"/>
+			</Grid>
         <!-- Column Headers -->
-        <Grid DockPanel.Dock="Top" ColumnDefinitions="2*,5*,2*" Margin="0 0 0 0" Background="Orange">
-            <TextBlock Text="Source File" FontWeight="Bold"  Padding="10"/>
-            <TextBlock Text="Log Message" Grid.Column="1" FontWeight="Bold" Padding="10" />
-            <TextBlock Text="Timestamp" Grid.Column="2" FontWeight="Bold" Padding="10"/>
-        </Grid>
+			<Grid DockPanel.Dock="Top" ColumnDefinitions="2*,5*,2*" Margin="0" Background="Orange" Height="40">
+				<!-- Column 0: Source File -->
+				<Border BorderBrush="Black" BorderThickness="1" Background="#BBF5B3" Grid.Column="0">
+					<TextBlock Text="Source File" FontWeight="Bold"  FontFamily="JetBrains Mono" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+				</Border>
 
-        <!-- Log Entries -->
+				<!-- Column 1: Log Message -->
+				<Border BorderBrush="Black" BorderThickness="1" Background="#B3D0F5" Grid.Column="1">
+					<TextBlock Text="Log Message" FontWeight="Bold" FontFamily="JetBrains Mono" Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+				</Border>
+
+				<!-- Column 2: Timestamp -->
+				<Border BorderBrush="Black" BorderThickness="1" Background="#F5B3DF" Grid.Column="2">
+					<TextBlock Text="Timestamp" FontWeight="Bold" Padding="10"  FontFamily="JetBrains Mono" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+				</Border>
+			</Grid>
+
+			<!-- Log Entries -->
         <ScrollViewer>
             <ItemsControl ItemsSource="{Binding LogViewModel.LogEntries}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="models:LogEntryModel">
-                        <Grid ColumnDefinitions="2*,5*,2*" Margin="0 0 0 4 " Background="Teal">
-                            <TextBlock Text="{Binding Source}" Padding="10"/>
-                            <TextBlock Text="{Binding Message}" Grid.Column="1" TextWrapping="Wrap" Padding="10" />
-                            <TextBlock Text="{Binding Timestamp}" Grid.Column="2" Padding="10"/>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-    </DockPanel>
+						<Border BorderBrush="Gray" BorderThickness="2" >
+							<Grid ColumnDefinitions="2*,5*,2*" Margin="0 0 0 4">
+								<TextBlock Text="{Binding Source}" Padding="10"  FontFamily="JetBrains Mono"
+										   Foreground="Black"/>
+								<TextBlock Text="{Binding Message}" Grid.Column="1" TextWrapping="Wrap" Padding="10" 
+										    FontFamily="JetBrains Mono" Foreground="Black"/>
+								<TextBlock Text="{Binding Timestamp}" Grid.Column="2" Padding="10"  FontFamily="JetBrains Mono"
+										   Foreground="Black"/>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
 </Window>
