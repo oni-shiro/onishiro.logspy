@@ -130,26 +130,26 @@ jobs:
           name: client-${{ matrix.runtime }}
           path: artifacts/client-${{ matrix.runtime }}
 
-     # 10. Zip artifacts before uploading
-      - name: Zip Broker
-        run: |
-          cd artifacts/broker-${{ matrix.runtime }}
-          zip -r ../broker-${{ matrix.runtime }}.zip .
-        shell: bash
+#      # 10. Zip artifacts before uploading
+#       - name: Zip Broker
+#         run: |
+#           cd artifacts/broker-${{ matrix.runtime }}
+#           zip -r ../broker-${{ matrix.runtime }}.zip .
+#         shell: bash
       
-      - name: Zip Client
-        run: |
-          cd artifacts/client-${{ matrix.runtime }}
-          zip -r ../client-${{ matrix.runtime }}.zip .
-        shell: bash
+#       - name: Zip Client
+#         run: |
+#           cd artifacts/client-${{ matrix.runtime }}
+#           zip -r ../client-${{ matrix.runtime }}.zip .
+#         shell: bash
 
-# 11. If this is a tagged release, upload to GitHub Releases
-      - name: Create GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            artifacts/broker-${{ matrix.runtime }}.zip
-            artifacts/client-${{ matrix.runtime }}.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# # 11. If this is a tagged release, upload to GitHub Releases
+#       - name: Create GitHub Release
+#         if: startsWith(github.ref, 'refs/tags/')
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           files: |
+#             artifacts/broker-${{ matrix.runtime }}.zip
+#             artifacts/client-${{ matrix.runtime }}.zip
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
