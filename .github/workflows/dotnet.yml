@@ -59,6 +59,7 @@ jobs:
       - name: Add Broker Service Files
         run: |
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            mkdir -p artifacts/broker-${{ matrix.runtime }}/scripts
             cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/scripts/install-broker-service.ps1
           param(
               [string]$ServiceName = "OnishiroLogSpyBroker",
@@ -80,6 +81,7 @@ jobs:
           fi
 
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            mkdir -p artifacts/broker-${{ matrix.runtime }}/scripts
             cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/scripts/logspy-broker.service
           [Unit]
           Description=Onishiro LogSpy Broker
