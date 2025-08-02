@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET Build & Publish
+name: Build & Publish Broker + Client
 
 on:
   push:
@@ -15,9 +15,11 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]  # Can add macos-latest too
-        configuration: [Release]
-        dotnet-version: [9.0.x]
+        include:
+          - os: windows-latest
+            runtime: win-x64
+          - os: ubuntu-latest
+            runtime: linux-x64
 
     steps:
       # 1. Checkout code
@@ -27,45 +29,61 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 9.0.x
 
-      # 3. Restore dependencies
+      # 3. Restore
       - name: Restore
         run: dotnet restore onishiro.logspy.sln
 
-      # 4. Build solution
+      # 4. Build
       - name: Build
-        run: dotnet build onishiro.logspy.sln --no-restore --configuration ${{ matrix.configuration }}
+        run: dotnet build onishiro.logspy.sln --no-restore --configuration Release
 
-      # 5. Publish Broker EXE (self-contained)
+      # 5. Publish Broker
       - name: Publish Broker
         run: |
-          dotnet publish src/onishiro.logspy.broker/onishiro.logspy.broker.csproj \
-            --configuration ${{ matrix.configuration }} \
-            --runtime win-x64 \
-            --self-contained true \
-            /p:PublishTrimmed=false \
-            -o artifacts/broker-${{ matrix.os }}
+          dotnet publish src/onishiro.logspy.broker/onishiro.logspy.broker.csproj --configuration Release --runtime ${{ matrix.runtime }} --self-contained true /p:PublishTrimmed=false -o artifacts/broker-${{ matrix.runtime }}
+        shell: bash
+        if: runner.os != 'Windows'
 
-      # 6. Publish UI Client EXE (self-contained)
+      - name: Publish Broker (Windows)
+        run: >
+          dotnet publish src/onishiro.logspy.broker/onishiro.logspy.broker.csproj
+          --configuration Release
+          --runtime ${{ matrix.runtime }}
+          --self-contained true
+          /p:PublishTrimmed=false
+          -o artifacts/broker-${{ matrix.runtime }}
+        if: runner.os == 'Windows'
+
+      # 6. Publish Client
       - name: Publish Client
         run: |
-          dotnet publish src/onishiro.logspy.client/onishiro.logspy.client.csproj \
-            --configuration ${{ matrix.configuration }} \
-            --runtime win-x64 \
-            --self-contained true \
-            /p:PublishTrimmed=false \
-            -o artifacts/client-${{ matrix.os }}
+          dotnet publish src/onishiro.logspy.client/onishiro.logspy.client.csproj --configuration Release --runtime ${{ matrix.runtime }} --self-contained true /p:PublishTrimmed=false -o artifacts/client-${{ matrix.runtime }}
+        shell: bash
+        if: runner.os != 'Windows'
 
-      # 7. Upload artifacts
+      - name: Publish Client (Windows)
+        run: >
+          dotnet publish src/onishiro.logspy.client/onishiro.logspy.client.csproj
+          --configuration Release
+          --runtime ${{ matrix.runtime }}
+          --self-contained true
+          /p:PublishTrimmed=false
+          -o artifacts/client-${{ matrix.runtime }}
+        if: runner.os == 'Windows'
+
+      # 7. Upload Broker Artifact
       - name: Upload Broker Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: broker-${{ matrix.os }}
-          path: artifacts/broker-${{ matrix.os }}
+          name: broker-${{ matrix.runtime }}
+          path: artifacts/broker-${{ matrix.runtime }}
 
+      # 8. Upload Client Artifact
       - name: Upload Client Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: client-${{ matrix.os }}
-          path: artifacts/client-${{ matrix.os }}
+          name: client-${{ matrix.runtime }}
+          path: artifacts/client-${{ matrix.runtime }}
+
