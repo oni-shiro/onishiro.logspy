@@ -59,7 +59,7 @@ jobs:
       - name: Add Broker Service Files
         run: |
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/install-broker-service.ps1
+            cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/scripts/install-broker-service.ps1
           param(
               [string]$ServiceName = "OnishiroLogSpyBroker",
               [string]$DisplayName = "Onishiro LogSpy Broker",
@@ -80,7 +80,7 @@ jobs:
           fi
 
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/logspy-broker.service
+            cat <<'EOF' > artifacts/broker-${{ matrix.runtime }}/scripts/logspy-broker.service
           [Unit]
           Description=Onishiro LogSpy Broker
           After=network.target
@@ -128,13 +128,26 @@ jobs:
           name: client-${{ matrix.runtime }}
           path: artifacts/client-${{ matrix.runtime }}
 
-      # 11. If this is a tagged release, upload to GitHub Releases
+     # 10. Zip artifacts before uploading
+      - name: Zip Broker
+        run: |
+          cd artifacts/broker-${{ matrix.runtime }}
+          zip -r ../broker-${{ matrix.runtime }}.zip .
+        shell: bash
+      
+      - name: Zip Client
+        run: |
+          cd artifacts/client-${{ matrix.runtime }}
+          zip -r ../client-${{ matrix.runtime }}.zip .
+        shell: bash
+
+# 11. If this is a tagged release, upload to GitHub Releases
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/broker-${{ matrix.runtime }}/**
-            artifacts/client-${{ matrix.runtime }}/**
+            artifacts/broker-${{ matrix.runtime }}.zip
+            artifacts/client-${{ matrix.runtime }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
