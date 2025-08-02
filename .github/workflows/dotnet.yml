@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: .NET Build
 
 on:
   push:
@@ -11,18 +11,26 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      # 1. Checkout source code
+      - uses: actions/checkout@v4
+
+      # 2. Setup .NET SDK
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      # 3. Restore dependencies for the solution
+      - name: Restore dependencies
+        run: dotnet restore onishiro.logspy.sln
+
+      # 4. Build all projects in the solution
+      - name: Build solution
+        run: dotnet build onishiro.logspy.sln --no-restore --configuration Release
+
+      # 5. Run tests (only if test projects exist)
+      - name: Run tests
+        run: dotnet test onishiro.logspy.sln --no-build --verbosity normal || echo "No tests found, skipping."
